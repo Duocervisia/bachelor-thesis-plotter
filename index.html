@@ -9,15 +9,24 @@
         body{
             height: 100vh;
             overflow: hidden;
+            display: flex;
         }
         canvas{
             padding: 1em;
+        }
+        #legend{
+            display: flex;
+            flex-direction: column;
+            margin: auto 1em;
         }
     </style>
 </head>
 <body>
     <canvas id="myChart"></canvas> 
-    <script src="euler.js"></script>   
+    <div id="legend"></div>
+    <script src="euler.js"></script> 
+    <script src="beyer.js"></script>   
+    <script src="beyerNew.js"></script>
     <script src="eulerOneMin.js"></script>      
     <script src="script.js"></script>
 </body>
