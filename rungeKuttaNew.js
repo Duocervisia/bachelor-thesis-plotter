@@ -133,24 +133,24 @@ class BeyerNew {
         if(T_vor === undefined){
             return this.tempIncrementFormula(T_a, G, dt, T_vor);
         }
-        let k1 = this.tempIncrementFormula(T_a, G, dt/2, T_vor) * 2;
-        let k2 = this.tempIncrementFormula(T_a, G, dt/2, T_vor + 0.5*k1) * 2;
-        let k3 = this.tempIncrementFormula(T_a, G, dt/2, T_vor + 0.5*k2) * 2;
-        let k4 = this.tempIncrementFormula(T_a + k3, G, dt, T_vor + 0.5*k3);
+        let k1 = this.tempIncrementFormula(T_a, G, dt/2, dt, T_vor) * 2;
+        let k2 = this.tempIncrementFormula(T_a, G, dt/2, dt, T_vor + 0.5*k1) * 2;
+        let k3 = this.tempIncrementFormula(T_a, G, dt/2, dt, T_vor + 0.5*k2) * 2;
+        let k4 = this.tempIncrementFormula(T_a + k3, G, dt, dt, T_vor + 0.5*k3);
         // console.log(k1, k2, k3, k4);
         let T_Next = T_vor + (1/6)*(k1 + 2*k2 + 2*k3 + k4)
 
         return T_Next
     }
 
-    tempIncrementFormula(T_a, G, dt, T_vor){
+    tempIncrementFormula(T_a, G, dt,dt_step, T_vor){
         let c = 29;
         let tau = 10 * 60;
         if(T_vor === undefined){
             return T_a + c * G / 1000;
         }else{
             let T_stat = T_a + c * G / 1000;
-            return (T_stat - T_vor) * (1 - Math.exp(-dt / tau));
+            return (T_stat - T_vor) * (1 - Math.exp(-dt / tau)) *dt/dt_step;
         }
     }
   /*

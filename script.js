@@ -28,8 +28,10 @@ let resultsEulerOneMin = eulerOneMin.run(ch);
 
 
 let newData = [];
-let beginnTime = 1504173600;
-let endTime = 1504188000;
+let beginnTime = 0;
+let endTime = 1904188000;
+// let beginnTime = 1504173600;
+// let endTime = 1504188000;
 // let beginnTime = 1501480800;
 // let endTime = 1501509600;
 resultsEulerOneMin.forEach((d) => {
@@ -41,42 +43,34 @@ resultsEulerOneMin.forEach((d) => {
         });
     }
 });
+console.log("done EulerOneMin");
+let i = 0;
 resultsEuler.forEach((d) => {
     if(d[0] <= endTime && d[0] >= beginnTime) {
-        //find the corresponding data point in newData, where the date is the same
-        let index = newData.findIndex((element) => {
-            return element.date.getTime() === d[0] * 1000;
-        });
-
-        if(index !== -1) {
-            newData[index].moduleTemperatureEulerFiveMin = d[1];
-        }
+        newData[i*5].moduleTemperatureEulerFiveMin = d[1];
+        i++;
     }
 });
+console.log("done Euler");
+i= 0;
 resultsBeyer.forEach((d) => {
     if(d[0] <= endTime && d[0] >= beginnTime) {
         //find the corresponding data point in newData, where the date is the same
-        let index = newData.findIndex((element) => {
-            return element.date.getTime() === d[0] * 1000;
-        });
-
-        if(index !== -1) {
-            newData[index].moduleTemperatureBeyerFiveMin = d[1];
-        }
+        newData[i*5].moduleTemperatureBeyerFiveMin = d[1];
+        i++;
     }
 });
+console.log("done Beyer");
+i= 0;
 resultsBeyerNew.forEach((d) => {
     if(d[0] <= endTime && d[0] >= beginnTime) {
         //find the corresponding data point in newData, where the date is the same
-        let index = newData.findIndex((element) => {
-            return element.date.getTime() === d[0] * 1000;
-        });
-
-        if(index !== -1) {
-            newData[index].moduleTemperatureBeyerNewFiveMin = d[1];
-        }
+        newData[i*5].moduleTemperatureBeyerNewFiveMin = d[1];
+        i++;
+        
     }
 });
+console.log("done BeyerNew");
 let totalDiffEuler = 0;
 let totalDiffBeyer = 0;
 let totalDiffBeyerNew = 0;
@@ -103,56 +97,56 @@ span = document.createElement("span");
 span.textContent = totalDiffBeyerNew.toFixed(2) + " Beyer New Abweichung";
 legendDiv.appendChild(span);
 
-const myChart = new Chart(document.getElementById("myChart"), {
-    type: "line",
-    data: {
-        labels: newData.map((d) => {
-            let date = d.date;
-            let hours = date.getHours();
-            let minutes = date.getMinutes();
+// const myChart = new Chart(document.getElementById("myChart"), {
+//     type: "line",
+//     data: {
+//         labels: newData.map((d) => {
+//             let date = d.date;
+//             let hours = date.getHours();
+//             let minutes = date.getMinutes();
         
-            // Pad the minutes with a 0 if it's less than 10
-            minutes = minutes < 10 ? '0' + minutes : minutes;
+//             // Pad the minutes with a 0 if it's less than 10
+//             minutes = minutes < 10 ? '0' + minutes : minutes;
         
-            return hours + ':' + minutes;
-        }),
-        datasets: [
-            {
-                label: "Temperature",
-                data: newData.map((d) => d.temperature),
-                borderColor: "red",
-                fill: false,
-            },
-            {
-                label: "Module Temperature Euler 5 min",
-                data: newData.map((d) => d.moduleTemperatureEulerFiveMin),
-                borderColor: "green",
-                fill: false,
-                showLine: true, // This will show the line
-            },
-            {
-                label: "Module Temperature Beyer 5 Min",
-                data: newData.map((d) => d.moduleTemperatureBeyerFiveMin),
-                borderColor: "purple",
-                fill: false,
-                showLine: true, // This will show the line
-            },
-            {
-                label: "Module Temperature Beyer New 5 Min",
-                data: newData.map((d) => d.moduleTemperatureBeyerNewFiveMin),
-                borderColor: "red",
-                fill: false,
-                showLine: true, // This will show the line
-            },
-            {
-                label: "Module Temperature Euler 1 Min",
-                data: newData.map((d) => d.moduleTemperatureEulerOneMin),
-                borderColor: "blue",
-                fill: false,
-            },
-        ],
-    }
-});
+//             return hours + ':' + minutes;
+//         }),
+//         datasets: [
+//             {
+//                 label: "Temperature",
+//                 data: newData.map((d) => d.temperature),
+//                 borderColor: "red",
+//                 fill: false,
+//             },
+//             {
+//                 label: "Module Temperature Euler 5 min",
+//                 data: newData.map((d) => d.moduleTemperatureEulerFiveMin),
+//                 borderColor: "green",
+//                 fill: false,
+//                 showLine: true, // This will show the line
+//             },
+//             {
+//                 label: "Module Temperature Beyer 5 Min",
+//                 data: newData.map((d) => d.moduleTemperatureBeyerFiveMin),
+//                 borderColor: "purple",
+//                 fill: false,
+//                 showLine: true, // This will show the line
+//             },
+//             {
+//                 label: "Module Temperature Beyer New 5 Min",
+//                 data: newData.map((d) => d.moduleTemperatureBeyerNewFiveMin),
+//                 borderColor: "red",
+//                 fill: false,
+//                 showLine: true, // This will show the line
+//             },
+//             {
+//                 label: "Module Temperature Euler 1 Min",
+//                 data: newData.map((d) => d.moduleTemperatureEulerOneMin),
+//                 borderColor: "blue",
+//                 fill: false,
+//             },
+//         ],
+//     }
+// });
 // const myChart = new Chart(document.getElementById("myChart"), {
 //     type: "line",
 //     data: {
